@@ -1,182 +1,77 @@
-    public class Team
+        public class Account
     {
-        public int teamid;
-        public string teamname;
-        public string participant;
-        public int pcount;
-        public string institute;
-        public int totalpoint = 0;
-        public string planguage;
-        public int roomnumber;
-        public int turn = 5;
-        public string t_shirt_size;
-        public bool exist=false;
-        public Team(int teamid, string teamname, string participant, int pcount, string institute, int totalpoint, string planguage, int roomnumber, int turn, string shirt_size,bool exist)
+        public int currentbalance;
+        public int id;
+        public int totalbalance;
+        public int fee;
+        public Account(int currentbalance, int id, int totalbalance,int fee)
         {
-            this.teamid = teamid;
-            this.teamname = teamname;
-            this.participant = participant;
-            this.pcount = pcount;
-            this.institute = institute;
-            this.totalpoint = totalpoint;
-            this.planguage = planguage;
-            this.roomnumber = roomnumber;
-            this.turn = turn;
-            t_shirt_size = shirt_size;
-            this.exist = exist;
+            this.currentbalance = currentbalance;
+            this.id = id;
+            this.totalbalance = totalbalance;
+            this.fee = fee;
         }
-
-        public int submitsolution()
+        public int getid()
         {
-            Random rand = new Random();
-            int randomnumber = rand.Next(0, 101);
-            Console.WriteLine($"Random number between 0 and 100 is:{randomnumber}");
-            return randomnumber;
+         return id; 
         }
-        public (int, int) gettotalpoint(int turn, int randomnumber)
+       public int withdraw(int currentbaalance,int totalbalance)
         {
-            int totalpoint = 0;
-            while (turn > 0)
+            int withdraw = totalbalance - currentbaalance;
+            if (currentbaalance > totalbalance)
             {
-
-                Console.WriteLine($"The present turn is:{turn}");
-                turn--;
-            }
-
-            totalpoint = turn + randomnumber;
-            Console.WriteLine($"The present turn is:{turn}");
-            Console.WriteLine($"The present total point is:{totalpoint}");
-            return (turn, totalpoint);
-        }
-        public string payfees(string planguage)
-        {
-            Console.WriteLine("The planguage fee is 3000");
-            return planguage;
-        }
-        public int gettotalfee(int languagenumber)
-        {
-            int c = languagenumber * 3000;
-            Console.WriteLine($"The total fee for planguage is:{c}");
-            return c;
-        }
-        public int winteam(int initialturn, int randomnumber)
-        {
-            {
-                var (remainingTurn, totalPoints) = gettotalpoint(initialturn, randomnumber);
-                if (totalpoint > 50)
-                {
-                    Console.WriteLine("Team A wins.");
-                    return 1;
-                }
-                else
-                {
-
-                    Console.WriteLine("Team B wins.");
-                    return 2;
-                }
-            }
-        }
-        public (string, string) gettshirt(string teamname, string t_shirt_size)
-        {
-            Console.WriteLine($"The team name is:{teamname} and the t-shirt size is:{t_shirt_size}");
-            return (teamname, t_shirt_size);
-        }
-        public void teamvalidate(string teamname)
-        {
-            if (teamname == "DOTA" || teamname == "NFS")
-            {
-                Console.WriteLine("Valid");
+               
+                Console.WriteLine($"Withdrawal amount is:{withdraw}");
             }
             else
             {
-                Console.WriteLine("Invalid!");
+                Console.WriteLine("Withdraw impossible");
             }
+            return withdraw;
         }
-        public string getteamname()
+        public int diposit(int currentbaalance, int totalbalance)
         {
-            return teamname;
+            int diposit = totalbalance + currentbaalance;
+
+            Console.WriteLine($"The diposited balance is:{diposit}");
+
+            return diposit;
         }
-        public int getteamid(int teamid)
+        public (int,int) display(int id,int fee)
         {
-            if (teamid == 1)
-            {
-                Console.WriteLine($"Team is NFS.It's id is:{teamid}");
-            }
-            if (teamid == 2)
-            {
-                Console.WriteLine($"Team is DOTA.It's id is:{teamid}");
-            }
-            return teamid;
+            int fee2 = id * fee;
+            Console.WriteLine($"The fee of participant is:{fee2}");
+            return (id, fee2);
         }
-        public void checkvalidityparticipant(string teamname)
+        public void checkvalidity(int currentbalance)
         {
-            if (teamname == "DOTA" || teamname == "NFS")
+            if (currentbalance <= 0)
             {
-                Console.WriteLine("Valid Participant");
+                Console.WriteLine("Valid Account");
             }
             else
             {
-                Console.WriteLine("Invalid Participant!");
+                Console.WriteLine("Invalid Account!");
             }
         }
-        public string getinstitute(string teamname)
+        public int gettotalbalance(int currrentbalace)
         {
-
-            if (teamname == "DOTA")
-            {
-                Console.WriteLine($"The team institute is:{teamname}");
-            }
-            if (teamname == "NFS")
-            {
-                Console.WriteLine($"The team institute is:{teamname}");
-            }
-            return teamname;
-
+            int totalbalance = currentbalance * 12;
+            return totalbalance;
         }
-        public int getpcount(int turn)
+        public int getcurrentbalance(int currrentbalace)
         {
-            return turn;
+            return currentbalance;
         }
-
-        public int gettotalpointt(int turn, int pcount)
+        public int getfee3(int currrentbalace, int totalbalance)
         {
-            return turn * pcount;
+            int fee3=currentbalance/totalbalance;
+            Console.WriteLine($"The fee is:{fee}");
+            return fee3;
         }
-        public void getplanguage(string teamname)
+        public int getfee()
         {
-            if (teamname == "DOTA")
-            {
-                Console.WriteLine("The language of DOTA is Danish");
-            }
-            if (teamname == "NFS")
-            {
-                Console.WriteLine("The language of NFS is NFS");
-
-            }
-        }
-        public int getroomnumber(int teamid)
-        { 
-           int roomnumber = teamid * 100;
-            Console.WriteLine($"The room of the team which id is:{teamid} room number is:{roomnumber}");
-            return roomnumber;
-
-        }
-        public void check_validity_of_turn(int turn,bool exist)
-        {
-            while (!exist)
-            {
-                if(turn>0)
-                {
-                    Console.WriteLine("Exist");
-                }
-                turn--;
-            }
-            if(turn==0&&exist)
-            {
-                Console.WriteLine("Dead and not exist.");
-            }
-            
+            return fee * 45;
         }
     }
 }
-
